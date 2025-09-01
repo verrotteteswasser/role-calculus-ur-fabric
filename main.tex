@@ -22,6 +22,7 @@
 \newunicodechar{≤}{\ensuremath{\le}}         % (falls benutzt)
 \newunicodechar{≥}{\ensuremath{\ge}}         % (falls benutzt)
 \newunicodechar{±}{\ensuremath{\pm}}         % (falls benutzt)
+\microtypesetup{protrusion=false} % nur wenn es dich nervt
 
 % Build-Metadaten (aus CI befüllt; lokal Fallback)
 \IfFileExists{buildmeta.tex}{\input{buildmeta.tex}}{%
@@ -1330,7 +1331,7 @@ The carrier is $O$-driven (guidance), while binding shells $b(r)$ imprint shape 
 
 \begin{figure}[htbp]\centering
   \begin{subfigure}[t]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{realism_vr_profile.png}
+    \includegraphics[width=\linewidth]{realism_vr_profiles.png}
     \caption{Realistic composite: observed $v_r(r)$.}
     \label{fig:real:vr}
   \end{subfigure}\hfill
