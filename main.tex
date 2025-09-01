@@ -14,6 +14,10 @@
 \usepackage[english]{babel}
 \usepackage{csquotes}
 
+\IfFileExists{buildmeta.tex}{\input{buildmeta.tex}}{
+  \def\BuildRun{DEV}\def\BuildSHA{local}\def\BuildDate{\today}
+}
+
 % ---------- Layout & Aesthetics ----------
 \usepackage{geometry}
 \geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=3cm}
@@ -81,6 +85,13 @@
 \newcommand{\Cout}{C_{\mathrm{out}}}
 \newcommand{\kO}{\kappa_{\mathrm{O}}}
 
+% Backward-compat für alte Fontbefehle (KOMA-safe)
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\relax}
 \begin{document}
 \begin{titlepage}
   \centering
@@ -92,11 +103,11 @@
   {\large A Dimension-Agnostic, Falsifiable Role Calculus}\\[-0.2em]
   {\small (\,O: orientation/transport,\ G: binding/structuring,\ K:=O$\!\circ$G;\ $t:=C[\tau^K]$\,)}\\[2.0em]
 
-  \begin{tabular}{@{}ll@{}}
-    Author: & Your Name \\
-    Supervisor: & Prof.\ Dr.\ X \\
-    Submission date: & \today \\
-  \end{tabular}
+ \begin{tabular}{@{}ll@{}}
+  Author: & Tim Brötzmann \\
+  Submission date: & \today \\
+  Build: & Run \BuildRun\ (\BuildSHA) — \BuildDate \\
+\end{tabular}
 
   \vfill
   % \includegraphics[width=0.28\linewidth]{figures/logo-placeholder}
