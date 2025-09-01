@@ -4,8 +4,13 @@
 \documentclass[12pt,a4paper,oneside]{scrreprt}
 
 % ---------- Language & Encoding ----------
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}      % <- ENTFERNEN/auskommentieren mit LuaLaTeX
+% \usepackage[utf8]{inputenc}   % <- ENTFERNEN/auskommentieren mit LuaLaTeX
+\usepackage{fontspec}           % <- NEU
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}
 \usepackage[english]{babel}
 \usepackage{csquotes}
 
@@ -1625,13 +1630,6 @@ A.~Author. \emph{Thresholds, Coherence, and Emergent Time from Ur-Fabric to Cosm
 }
 \end{verbatim}
 
-% References in TOC with a clear title
-\printbibliography[heading=bibintoc,title={References}]
-
-% --- ensure at least one entry even ohne Zitate während des Schreibens
 \nocite{*}
-
-% References with TOC entry
 \printbibliography[heading=bibintoc,title={References}]
-
 \end{document}
