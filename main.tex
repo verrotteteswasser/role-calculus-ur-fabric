@@ -78,17 +78,34 @@
 
 % ---------- Helper Macros ----------
 \usepackage{xparse}
+
 % failsafe \addfig: bricht nicht ab, wenn Bild fehlt
-\RenewDocumentCommand{\addfig}{O{htbp} m m m O{0.9}}{%
-  \begin{figure}[#1]\centering
-    \IfFileExists{\detokenize{#2}}{%
-      \includegraphics[width=#5\linewidth]{\detokenize{#2}}%
-    }{%
-      \fbox{\parbox{.9\linewidth}{\centering Missing file:
-        \texttt{\detokenize{#2}}}}%
-    }%
-    \caption{#3}\label{#4}
-  \end{figure}}
+
+\makeatletter
+\@ifundefined{addfig}{%
+  \NewDocumentCommand{\addfig}{O{htbp} m m m O{0.9}}{%
+    \begin{figure}[#1]\centering
+      \IfFileExists{\detokenize{#2}}{%
+        \includegraphics[width=#5\linewidth]{\detokenize{#2}}%
+      }{%
+        \fbox{\parbox{.9\linewidth}{\centering Missing file:
+          \texttt{\detokenize{#2}}}}%
+      }%
+      \caption{#3}\label{#4}
+    \end{figure}}
+}{%
+  \RenewDocumentCommand{\addfig}{O{htbp} m m m O{0.9}}{%
+    \begin{figure}[#1]\centering
+      \IfFileExists{\detokenize{#2}}{%
+        \includegraphics[width=#5\linewidth]{\detokenize{#2}}%
+      }{%
+        \fbox{\parbox{.9\linewidth}{\centering Missing file:
+          \texttt{\detokenize{#2}}}}%
+      }%
+      \caption{#3}\label{#4}
+    \end{figure}}
+}
+\makeatother
 
 % concept boxes
 \newenvironment{insight}{\par\vspace{0.5em}\noindent\textbf{Insight.}\ }{\par\vspace{0.5em}}
