@@ -14,6 +14,9 @@
 \usepackage[english]{babel}
 \usepackage{csquotes}
 
+\usepackage{microtype}
+\AtBeginDocument{\microtypesetup{protrusion=false}} % falls du Protrusion aus haben willst
+
 % --- Unicode -> LaTeX Mappings (fix build) ---
 \usepackage{newunicodechar}
 \newunicodechar{′}{\ensuremath{^{\prime}}}   % U+2032 prime
@@ -21,8 +24,6 @@
 \newunicodechar{→}{\ensuremath{\to}}         % (falls benutzt)
 \newunicodechar{≤}{\ensuremath{\le}}         % (falls benutzt)
 \newunicodechar{≥}{\ensuremath{\ge}}         % (falls benutzt)
-\newunicodechar{±}{\ensuremath{\pm}}         % (falls benutzt)
-\microtypesetup{protrusion=false} % nur wenn es dich nervt
 
 % Build-Metadaten (aus CI befüllt; lokal Fallback)
 \IfFileExists{buildmeta.tex}{\input{buildmeta.tex}}{%
@@ -31,9 +32,8 @@
 
 % ---------- Layout & Aesthetics ----------
 \usepackage{geometry}
-\geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=3cm}
+\geometry{...}
 \usepackage{setspace}\onehalfspacing
-\usepackage{microtype}
 
 % ---------- Math, Tables, Units ----------
 \usepackage{amsmath,amssymb,mathtools}
