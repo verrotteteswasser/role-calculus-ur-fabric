@@ -4,9 +4,8 @@
 \documentclass[12pt,a4paper,oneside]{scrreprt}
 
 % ---------- Language & Encoding ----------
-% \usepackage[T1]{fontenc}      % <- ENTFERNEN/auskommentieren mit LuaLaTeX
-% \usepackage[utf8]{inputenc}   % <- ENTFERNEN/auskommentieren mit LuaLaTeX
-\usepackage{fontspec}           % <- NEU
+% (für LuaLaTeX: keine inputenc/fontenc)
+\usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}
 \setmainfont{Latin Modern Roman}
 \setsansfont{Latin Modern Sans}
@@ -14,35 +13,27 @@
 \usepackage[english]{babel}
 \usepackage{csquotes}
 
-\IfFileExists{buildmeta.tex}{\input{buildmeta.tex}}{
-  \def\BuildRun{DEV}\def\BuildSHA{local}\def\BuildDate{\today}
+% Build-Metadaten (aus CI befüllt; lokal Fallback)
+\IfFileExists{buildmeta.tex}{\input{buildmeta.tex}}{%
+  \def\BuildRun{DEV}\def\BuildSHA{local}\def\BuildDate{\today}%
 }
 
 % ---------- Layout & Aesthetics ----------
 \usepackage{geometry}
 \geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=3cm}
-\usepackage{setspace}
-\onehalfspacing
+\usepackage{setspace}\onehalfspacing
 \usepackage{microtype}
 
 % ---------- Math, Tables, Units ----------
 \usepackage{amsmath,amssymb,mathtools}
-\usepackage{siunitx}
-\sisetup{detect-all=true}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{multirow}
+\usepackage{siunitx}\sisetup{detect-all=true}
+\usepackage{booktabs,array,multirow}
 
 % ---------- Graphics ----------
-\usepackage{graphicx}
-\usepackage{subcaption}
-\usepackage{caption}
+\usepackage{graphicx,subcaption,caption}
 \captionsetup{labelfont=bf}
-
-% WICHTIG: beide Ordner erlauben (du hast figures/fig/)
 \graphicspath{{figures/}{figures/fig/}}
-% Optional: während Bilder fehlen
-% \setkeys{Gin}{draft=true}
+% \setkeys{Gin}{draft=true} % falls Bilder fehlen
 
 % ---------- Links & Clever refs ----------
 \usepackage{xcolor}
@@ -60,14 +51,12 @@
 \addbibresource{references.bib}
 
 % ---------- TODOs (toggle) ----------
-\newif\ifdraft
-\draftfalse
-\ifdraft \usepackage{todonotes} \else \usepackage[disable]{todonotes} \fi
+\newif\ifdraft \draftfalse
+\ifdraft\usepackage{todonotes}\setlength{\marginparwidth}{2cm}\else\usepackage[disable]{todonotes}\fi
 
 % ---------- Helper Macros ----------
 \usepackage{xparse}
-% failsafe \addfig (bricht nicht ab, wenn Bild fehlt)
-\usepackage{ifthen}
+% failsafe \addfig: bricht nicht ab, wenn Bild fehlt
 \NewDocumentCommand{\addfig}{O{htbp} m m m O{0.9}}{%
   \begin{figure}[#1]\centering
     \IfFileExists{#2}{\includegraphics[width=#5\linewidth]{#2}}%
@@ -85,32 +74,32 @@
 \newcommand{\Cout}{C_{\mathrm{out}}}
 \newcommand{\kO}{\kappa_{\mathrm{O}}}
 
-% Backward-compat für alte Fontbefehle (KOMA-safe)
+% Backward-compat für alte Font-Befehle (KOMA-safe)
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
 \DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
 \DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
 \DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
 \DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
 \DeclareOldFontCommand{\sc}{\normalfont\scshape}{\relax}
+
+% ==================================================================
+
 \begin{document}
 \begin{titlepage}
   \centering
   {\Large Master Thesis (Hypothesis-Driven, Physically Anchored)}\\[0.6em]
-
   {\huge\bfseries Roles, Thresholds, and Counting Time}\\[0.25em]
   {\Large\bfseries From Ur-Fabric to Cosmos, Life, Mind \& AI}\\[1.0em]
-
   {\large A Dimension-Agnostic, Falsifiable Role Calculus}\\[-0.2em]
   {\small (\,O: orientation/transport,\ G: binding/structuring,\ K:=O$\!\circ$G;\ $t:=C[\tau^K]$\,)}\\[2.0em]
 
- \begin{tabular}{@{}ll@{}}
-  Author: & Tim Brötzmann \\
-  Submission date: & \today \\
-  Build: & Run \BuildRun\ (\BuildSHA) — \BuildDate \\
-\end{tabular}
+  \begin{tabular}{@{}ll@{}}
+    Author: & Tim Brötzmann \\
+    Submission date: & \today \\
+    Build: & Run \BuildRun\ (\BuildSHA) — \BuildDate \\
+  \end{tabular}
 
   \vfill
-  % \includegraphics[width=0.28\linewidth]{figures/logo-placeholder}
   \IfFileExists{figures/logo-placeholder}{\includegraphics[width=0.28\linewidth]{figures/logo-placeholder}}{}
 \end{titlepage}
 
