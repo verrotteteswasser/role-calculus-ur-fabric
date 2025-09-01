@@ -1,3 +1,81 @@
+% ==================================================================
+% Master file
+% ==================================================================
+\documentclass[12pt,a4paper,oneside]{scrreprt}
+
+% ---------- Language & Encoding ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+% ---------- Layout & Aesthetics ----------
+\usepackage{geometry}
+\geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=3cm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{microtype}
+
+% ---------- Math, Tables, Units ----------
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{siunitx}
+\sisetup{detect-all=true}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+% ---------- Graphics ----------
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{labelfont=bf}
+
+% WICHTIG: beide Ordner erlauben (du hast figures/fig/)
+\graphicspath{{figures/}{figures/fig/}}
+% Optional: während Bilder fehlen
+% \setkeys{Gin}{draft=true}
+
+% ---------- Links & Clever refs ----------
+\usepackage{xcolor}
+\definecolor{linkblue}{HTML}{0A66C2}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=linkblue,urlcolor=linkblue}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+% ---------- Plots (optional) ----------
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ---------- Bibliography ----------
+\usepackage[backend=biber,style=authoryear,maxbibnames=99,giveninits=true]{biblatex}
+\addbibresource{references.bib}
+
+% ---------- TODOs (toggle) ----------
+\newif\ifdraft
+\draftfalse
+\ifdraft \usepackage{todonotes} \else \usepackage[disable]{todonotes} \fi
+
+% ---------- Helper Macros ----------
+\usepackage{xparse}
+% failsafe \addfig (bricht nicht ab, wenn Bild fehlt)
+\usepackage{ifthen}
+\NewDocumentCommand{\addfig}{O{htbp} m m m O{0.9}}{%
+  \begin{figure}[#1]\centering
+    \IfFileExists{#2}{\includegraphics[width=#5\linewidth]{#2}}%
+    {\fbox{\parbox{.9\linewidth}{\centering Missing file: #2}}}%
+    \caption{#3}\label{#4}
+  \end{figure}}
+
+% concept boxes
+\newenvironment{insight}{\par\vspace{0.5em}\noindent\textbf{Insight.}\ }{\par\vspace{0.5em}}
+\newenvironment{implication}{\par\vspace{0.5em}\noindent\textbf{Implication.}\ }{\par\vspace{0.5em}}
+\newenvironment{limitation}{\par\vspace{0.5em}\noindent\textbf{Assumptions \\ \& Limitations.}\ }{\par\vspace{0.5em}}
+
+% notation
+\newcommand{\sinIn}{s_{\mathrm{in}}}
+\newcommand{\Cout}{C_{\mathrm{out}}}
+\newcommand{\kO}{\kappa_{\mathrm{O}}}
+
 \begin{document}
 \begin{titlepage}
   \centering
@@ -1107,84 +1185,161 @@ These signatures are falsifiable and mechanism-light; no new primitives beyond $
 
 \part{Benchmarks and Calibration (Physics-Anchored)}
 
-\chapter{Benchmark I: Newtonian Gravity ⇒ Orientation Law (T1–Grav)}\label{bench:grav}
-\section*{Prediction}
-Stacks around approximately spherical deficits/excesses of radius $a$ exhibit inner slope $+1$, outer slope $-2$, and the parameter-free identity $\Cout/\sinIn=a^3$ with $v_O\!\leftrightarrow g$.
+\chapter{Benchmark I: Gravity ⇒ Orientation Law (T1)}
+\section*{Plain-language overview}
+In weak field, the orientation carrier $v_O\!\leftrightarrow g$ obeys the T1 signature: interior slope $+1$, exterior slope $-2$, and the parameter-free identity $C_{\rm out}/s_{\rm in}=a^3$.
 
-\section*{Protocol}
-Stack objects by $a$; estimate the interior slope $s_{\rm in}$ from $g_r(r\!\le\!a)$ and the exterior Gauss constant $C_{\rm out}:=r^2 g_r|_{r\ge a}$; verify slopes and identity; obtain $G$ from interior/exterior pulls and report a weighted $G^*$.
+\begin{figure}[htbp]\centering
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{gravity_vr_profile.png}
+    \caption{Radial profile $v_r(r)$ (representative stack).}
+    \label{fig:grav:vr}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{gravity_beta_signature.png}
+    \caption{Log-slope $\beta_O(r)$ showing $+1/-2$.}
+    \label{fig:grav:beta}
+  \end{subfigure}
 
-\section*{Nulls}
-Label shuffles (reassign $a$), shell randomization of profiles, independent pipeline splits.
+  \vspace{0.6em}
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{gravity_inside_fit.png}
+    \caption{Interior fit $\;v_r=s_{\rm in}\,r\;$ (through origin).}
+    \label{fig:grav:inside}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{gravity_outside_constant.png}
+    \caption{Exterior Gauss constant $C_{\rm out}=r^2 v_r$.}
+    \label{fig:grav:cout}
+  \end{subfigure}
+\end{figure}
 
-\section*{Report}
-Slopes with CIs, identity residual $\delta_I=\big|\Cout/\sinIn-a^3\big|/a^3$, $G_{\rm in},G_{\rm out},G^*$; bootstrap/jackknife bands.
+\noindent\textbf{Calibration.} Coupling via counts: compare $G_{\rm in}\propto s_{\rm in}/\rho_N$ and $G_{\rm out}\propto C_{\rm out}/N$; report weighted $G^*$.
+\addfig{gravity_G_estimates.png}{Gravity avatar calibration from interior/exterior pulls.}{fig:grav:G}
 
-\addfig{figures/gravity.png}{Gravity as orientation: $+1/-2$ slopes and the identity $\Cout/\sinIn=a^3$.}{fig:bench:gravity}[0.9]
+\chapter{Benchmark II: Electrostatics ⇒ Same Role Signature}
+\section*{Plain-language overview}
+Replacing masses by charges and $G$ by $1/4\pi\varepsilon_0$ yields the same T1 geometry.
 
-\chapter{Benchmark II: Electrostatics ⇒ Orientation Law (T1–EM)}\label{bench:em}
-\section*{Prediction}
-Replacing masses by charges and $G$ by $1/(4\pi\varepsilon_0)$ yields the same signatures: inner $+1$, outer $-2$, $\Cout/\sinIn=a^3$.
+\begin{figure}[htbp]\centering
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{electrostatics_inside_fit.png}
+    \caption{Interior linear rise ($+1$).}
+    \label{fig:em:inside}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{electrostatics_outside_constant.png}
+    \caption{Exterior Gauss constant ($-2$ slope).}
+    \label{fig:em:cout}
+  \end{subfigure}
 
-\section*{Protocol}
-Use dielectric/charge reconstructions to build stacks; repeat the T1 steps with $\kO^{(\mathrm{EM})}=1/(4\pi\varepsilon_0)$.
+  \vspace{0.6em}
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{electrostatics_beta_signature.png}
+    \caption{Slope $\beta_O(r)$ reproduces $+1/-2$.}
+    \label{fig:em:beta}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{electrostatics_Emag_profile.png}
+    \caption{Field magnitude profile $E(r)$.}
+    \label{fig:em:Emag}
+  \end{subfigure}
+\end{figure}
 
-\section*{Nulls}
-As in Benchmark I; add electrode/geometry randomization where applicable.
+\addfig{electrostatics_param_estimates.png}{Electrostatics avatar: parameter checks vs.\ counts.}{fig:em:params}
 
-\section*{Report}
-Slope fits, identity residual, cross-check of $\kO^{(\mathrm{EM})}$ across environments.
+\chapter{Benchmark III: Carrier vs.\ Imprint (Payload/Flux Families)}
+\section*{Plain-language overview}
+The carrier is $O$-driven (guidance), while binding shells $b(r)$ imprint shape (emission/attenuation). Profiles separate cleanly into carrier asymptotes and environment-dependent imprints.
 
-\addfig{figures/electrostatics.png}{Electrostatics as orientation: same inner/outer slopes and identity with $\kO^{(\mathrm{EM})}=1/(4\pi\varepsilon_0)$.}{fig:bench:electrostatics}[0.9]
+\begin{figure}[htbp]\centering
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{Otransport_vr_profile.png}
+    \caption{$O$-transport carrier: $v_r(r)$ archetype.}
+    \label{fig:carrier:vr}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{binding_proxy_shell.png}
+    \caption{Binding proxy $b(r)$ (imprint shell).}
+    \label{fig:carrier:b}
+  \end{subfigure}
 
-\chapter{Benchmark III: Baryon-Conditioned Radiation (Carrier–Imprint)}\label{bench:baryon}
-\section*{Prediction}
-Transport remains $O$-driven (carrier asymptotes), while binding shells $b(r)$ imprint emission/attenuation (shape). Environment-dependent $q(r)$ and $J(r)$ share the same carrier asymptotes.
+  \vspace{0.6em}
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{payload_profiles.png}
+    \caption{Payload families $q(r)$ under different $b(r)$.}
+    \label{fig:carrier:payload}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{flux_profiles.png}
+    \caption{Flux families $J(r)$; same carrier asymptote.}
+    \label{fig:carrier:flux}
+  \end{subfigure}
+\end{figure}
 
-\section*{Protocol}
-Fit profiles with a carrier–imprint form (carrier asymptote fixed; imprint via $b(r)$ family); compare environments (e.g., low/high $b$).
+\begin{figure}[htbp]\centering
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{realism_vr_profile.png}
+    \caption{Realistic composite: observed $v_r(r)$.}
+    \label{fig:real:vr}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{realism_b_profiles.png}
+    \caption{Realistic $b(r)$ envelopes (imprint diversity).}
+    \label{fig:real:b}
+  \end{subfigure}
+\end{figure}
 
-\section*{Nulls}
-Swap $b$-shell labels; randomized shell radii; pipeline splits.
+\chapter{Benchmark IV: Sensitivity to Source/Sink Knobs}
+\section*{Plain-language overview}
+One-at-a-time scans expose which parameters control shape vs.\ amplitude.
 
-\section*{Report}
-Asymptotic exponents (carrier) vs.\ imprint parameters; goodness-of-fit and robustness under nulls.
+\begin{figure}[htbp]\centering
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{sensitivity_q_mu0.png}
+    \caption{Sensitivity in $\mu$ (near/far-field impact).}
+    \label{fig:sens:mu}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{sensitivity_q_lam0.png}
+    \caption{Sensitivity in $\lambda$ (damping/attenuation).}
+    \label{fig:sens:lam}
+  \end{subfigure}
+\end{figure}
 
-\addfig{figures/baryon_conditioning.png}{Baryon conditioning: payload and flux shaped by $b(r)$ on top of an $O$-driven carrier.}{fig:res:baryon-conditioning}[0.9]
+\chapter{Benchmark V: Thresholds and Hysteresis (T3)}
+\section*{Plain-language overview}
+Control sweeps reveal nucleation and persistence; loop area $\mathcal A_{\rm loop}$ quantifies feedback.
 
-\chapter{Benchmark IV: Sensitivity to Source/Sink Parameters}\label{bench:sensitivity}
-\section*{Prediction}
-One-at-a-time variation separates \emph{shape} controls from \emph{amplitude} controls and identifies robust role-level features.
+\begin{figure}[htbp]\centering
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{hysteresis_n_vs_sigma.png}
+    \caption{Canonical loop: $n$ vs.\ role-intensity $\sigma$.}
+    \label{fig:hyst:canon}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{realism_hysteresis_n_sigma.png}
+    \caption{Realistic loop under noise/conditioning.}
+    \label{fig:hyst:real}
+  \end{subfigure}
+\end{figure}
 
-\section*{Protocol}
-Scan $(s_0,\lambda_0,\mu,\nu,\nu')$ over plausible ranges; classify parameters by their effect on near- vs.\ far-field behavior.
+\chapter{Benchmark VI: BH-Prox Signatures (Role View)}
+\section*{Plain-language overview}
+Near compact objects, the same role logic splits carrier vs.\ imprint; thresholds appear as intensity transitions.
 
-\section*{Nulls}
-Randomize parameter–profile pairings; compare to surrogate scans with matched marginals.
-
-\section*{Report}
-Spider or waterfall summaries; near/far sensitivity split; parameters with shape control vs.\ amplitude only.
-
-\addfig{figures/sensitivity.png}{Sensitivity families across $(s_0,\lambda_0,\mu,\nu,\nu')$; near- vs.\ far-field control distinguished.}{fig:res:sensitivity}[0.9]
-
-\chapter{Benchmark V: Stacking of Multiple Structures}\label{bench:stacking}
-\section*{Prediction}
-Ensemble averaging smooths local features yet preserves net conditioning and carrier identities—explaining smooth sky maps that still respect role signatures.
-
-\section*{Protocol}
-Construct representative vs.\ ensemble stacks; compare asymptotes and identity residuals.
-
-\section*{Nulls}
-Shuffle membership labels; rebin radii; independent selection masks.
-
-\section*{Report}
-Ensemble mean $\pm1\sigma$ vs.\ representative profiles; stability of T1 signatures under stacking.
-
-\addfig{figures/stacking.png}{Stacking: representative vs.\ ensemble mean with $\pm1\sigma$ band; net conditioning preserved.}{fig:res:stacking}[0.9]
-
-\chapter{Benchmark VI: Thresholds and Hysteresis}\label{bench:hysteresis}
-\section*{Prediction}
-Control sweeps reveal nucleation and persistence with on/off asymmetry and a nonzero loop area—the operational face of $\Theta$ and $\sigma_c$.
+\begin{figure}[htbp]\centering
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{bh_profiles_vr_b.png}
+    \caption{Carrier $v_r$ with binding proxy $b(r)$ (BH-prox).}
+    \label{fig:bh:profiles}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{bh_sigma_thresholds.png}
+    \caption{Role-intensity $\sigma$ thresholds around horizon.}
+    \label{fig:bh:sigma}
+  \end{subfigure}
+\end{figure}
 
 \section*{Protocol}
 Sweep a control (e.g., density, field strength, feed); record the order parameter; extract $(\Theta_\uparrow,\Theta_\downarrow)$ and loop area $\mathcal A_{\rm loop}$.
@@ -1470,6 +1625,12 @@ A.~Author. \emph{Thresholds, Coherence, and Emergent Time from Ur-Fabric to Cosm
 \end{verbatim}
 
 % References in TOC with a clear title
+\printbibliography[heading=bibintoc,title={References}]
+
+% --- ensure at least one entry even ohne Zitate während des Schreibens
+\nocite{*}
+
+% References with TOC entry
 \printbibliography[heading=bibintoc,title={References}]
 
 \end{document}
