@@ -79,10 +79,14 @@
 % ---------- Helper Macros ----------
 \usepackage{xparse}
 % failsafe \addfig: bricht nicht ab, wenn Bild fehlt
-\NewDocumentCommand{\addfig}{O{htbp} m m m O{0.9}}{%
+\RenewDocumentCommand{\addfig}{O{htbp} m m m O{0.9}}{%
   \begin{figure}[#1]\centering
-    \IfFileExists{#2}{\includegraphics[width=#5\linewidth]{#2}}%
-    {\fbox{\parbox{.9\linewidth}{\centering Missing file: #2}}}%
+    \IfFileExists{\detokenize{#2}}{%
+      \includegraphics[width=#5\linewidth]{\detokenize{#2}}%
+    }{%
+      \fbox{\parbox{.9\linewidth}{\centering Missing file:
+        \texttt{\detokenize{#2}}}}%
+    }%
     \caption{#3}\label{#4}
   \end{figure}}
 
@@ -1243,7 +1247,7 @@ In weak field, the orientation carrier $v_O\!\leftrightarrow g$ obeys the T1 sig
 \end{figure}
 
 \noindent\textbf{Calibration.} Coupling via counts: compare $G_{\rm in}\propto s_{\rm in}/\rho_N$ and $G_{\rm out}\propto C_{\rm out}/N$; report weighted $G^*$.
-\addfig{gravity_G_estimates.png}
+\addfig{gravity\_d\_estimates.png}
        {Gravity avatar calibration from interior/exterior pulls.}
        {fig:grav:G}[0.9]
 
