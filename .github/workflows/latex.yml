@@ -1,29 +1,5 @@
-jobs:
-  latex:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with: { lfs: true }
-
-      - name: Write build metadata
-        run: |
-          echo "\def\BuildRun{${{ github.run_number }}}"      > buildmeta.tex
-          echo "\def\BuildSHA{${GITHUB_SHA::7}}"             >> buildmeta.tex
-          echo "\def\BuildDate{`date -u +%Y-%m-%dT%H:%M:%SZ`}" >> buildmeta.tex
-
-      - uses: xu-cheng/latex-action@v3
-        with:
-          root_file: main.tex
-          latexmk_use_lualatex: true
-          args: -halt-on-error -file-line-error
-          extra_system_packages: biber
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: thesis-pdf-${{ github.run_number }}
-          path: main.pdf
-
 name: build-pdf
+
 on:
   push:
   workflow_dispatch:
@@ -32,10 +8,23 @@ jobs:
   latex:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with: { lfs: true }   # falls große Bilder
+      - name: Checkout (incl. LFS for large images)
+        uses: actions/checkout@v4
+        with:
+          lfs: true
 
-      - uses: xu-cheng/latex-action@v3
+      # Write build meta that main.tex \inputs (BuildRun/SHA/Date)
+      - name: Write build metadata
+        shell: bash
+        run: |
+          echo "\def\BuildRun{${{ github.run_number }}}"        >  buildmeta.tex
+          echo "\def\BuildSHA{${GITHUB_SHA::7}}"               >> buildmeta.tex
+          echo "\def\BuildDate{$(date -u +%Y-%m-%dT%H:%M:%SZ)}" >> buildmeta.tex
+          echo "Wrote buildmeta.tex:"
+          cat buildmeta.tex
+
+      - name: Compile LaTeX (LuaLaTeX + biber)
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           latexmk_use_lualatex: true
@@ -43,7 +32,8 @@ jobs:
           args: -halt-on-error -file-line-error
           extra_system_packages: biber
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
         with:
           name: thesis-pdf-${{ github.run_number }}
           path: main.pdf
