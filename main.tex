@@ -58,12 +58,19 @@
 % \setkeys{Gin}{draft=true} % falls Bilder fehlen
 
 % ---------- Links & Clever refs ----------
+% Links & Clever refs
 \usepackage{xcolor}
 \definecolor{linkblue}{HTML}{0A66C2}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=black,citecolor=linkblue,urlcolor=linkblue}
 \usepackage[nameinlink,noabbrev]{cleveref}
 
+% ← HIER nach hyperref einfügen:
+\pdfstringdefDisableCommands{%
+  \def\BuildRun{}%
+  \def\BuildSHA{}%
+  \def\BuildDate{}%
+}
 % ---------- Plots (optional) ----------
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
