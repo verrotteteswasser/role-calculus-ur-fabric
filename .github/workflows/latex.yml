@@ -1,0 +1,25 @@
+name: build-pdf
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: true }   # falls große Bilder
+
+      - uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          latexmk_use_lualatex: true
+          latexmk_shell_escape: true
+          args: -halt-on-error -file-line-error
+          cache: true
+          extra_system_packages: biber
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: thesis-pdf-${{ github.run_number }}
+          path: main.pdf
