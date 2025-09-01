@@ -14,6 +14,27 @@
 \usepackage[english]{babel}
 \usepackage{csquotes}
 
+% --- Unicode -> LaTeX Mappings (fix build) ---
+\usepackage{newunicodechar}
+\newunicodechar{′}{\ensuremath{^{\prime}}}   % U+2032 prime
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}} % U+21D2
+\newunicodechar{→}{\ensuremath{\to}}         % (falls benutzt)
+\newunicodechar{≤}{\ensuremath{\le}}         % (falls benutzt)
+\newunicodechar{≥}{\ensuremath{\ge}}         % (falls benutzt)
+\newunicodechar{±}{\ensuremath{\pm}}         % (falls benutzt)
+
+% Math in moving arguments (section titles, captions) -> ASCII fallback
+\pdfstringdefDisableCommands{%
+  \def\Cout{Cout}%
+  \def\sinIn{sinIn}%
+  \def\kO{kappaO}%
+  \def\Theta{Theta}%
+  \def\Rightarrow{=>}%
+  \def\;{}%
+  \def\({}%
+  \def\){}%
+}
+
 % Build-Metadaten (aus CI befüllt; lokal Fallback)
 \IfFileExists{buildmeta.tex}{\input{buildmeta.tex}}{%
   \def\BuildRun{DEV}\def\BuildSHA{local}\def\BuildDate{\today}%
