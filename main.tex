@@ -152,29 +152,39 @@
 \pagenumbering{roman}
 
 \chapter*{Abstract}
-We propose a dimension-agnostic \emph{role calculus} with two primitives—%
-\emph{orientation/transport} $O$ and \emph{binding/structuring} $G$—and a non-acting reader $C$.
-The reader makes roles visible and \emph{counts}: $\tau^O$ counts $O$-events, $\tau^K$ counts overlap-events $K:=O\!\circ G$, and macroscopic time is the coarse continuation $t:=C[\tau^K]$.
-No new forces are introduced; sector avatars (gravity, electrostatics, radiation, networks) appear as weak-field limits of the same roles.
+We propose a dimension-agnostic \emph{role calculus} in which two primitives—
+\emph{orientation/transport} $O$ and \emph{binding/structuring} $G$—generate 
+observable structure. A non-acting reader $C$ counts events, so that time is not 
+a force but an order parameter: $\tau^O$ counts $O$-events, $\tau^K$ counts 
+composite overlap events $K:=O\!\circ G$, and macroscopic time continues as 
+$t:=C[\tau^K]$. No new forces are introduced; sector avatars (gravity, electrostatics, 
+radiation, networks) appear as weak-field realizations of the same roles.
 
-Two thresholds organize dynamics: a \emph{seed} threshold $\Theta$ (nucleation) and a \emph{persistence} threshold $\sigma_c$ (long-lived channels). This yields three parameter-light, falsifiable signatures:
-\emph{T1} (orientation avatar): inner/outer slopes $(+1,-2)$ with a parameter-free inside–outside identity $C_{\mathrm{out}}/s_{\mathrm{in}}=a^3$ (generalized to $D$ spatial dimensions as $(+1,-(D\!-\!1))$ and $a^{D}$);
-\emph{T2} (bridge): a finite cross-coherence band $0<C_1(k)<1$ between flows and potentials, removed by phase-shuffle nulls;
-\emph{T3} (thresholds): nucleation/persistence hysteresis with loop area $\mathcal A_{\rm loop}>0$.
+Dynamics are organized by two thresholds: a \emph{seed} threshold $\Theta$ 
+(local nucleation) and a \emph{persistence} threshold $\sigma_c$ (long-lived 
+channels). This yields three falsifiable, parameter-light signatures: 
+\emph{T1} (orientation law: $+1/-2$ slopes with parameter-free inside--outside 
+identity, generalizable to $D$ dimensions); 
+\emph{T2} (bridge law: finite cross-coherence band $0<C_1(k)<1$ removable 
+by null tests); 
+\emph{T3} (threshold law: nucleation--persistence hysteresis with loop area 
+$\mathcal A_{\rm loop}>0$).
 
-We map the same roles across layers—Ur-fabric $\rightarrow$ cosmos $\rightarrow$ molecules $\rightarrow$ life $\rightarrow$ mind/AI.
-Near black holes, a “release shell’’ ($r\!\sim\!1.2$–$10\,r_s$) acts as a concentration tree (trunk/channels/knots/seeds); we specify \emph{B-tests} (ringdown echoes, extra $C_1(k)$ peak near the photon ring, HFQPO over-ISCO) to detect $K$-events.
-For life, we formalize the \emph{Keim window} $\Delta\mu_{\rm eff}\!\gtrsim\!\Theta_{\rm eff}=\Theta/[k(|w_1|\!+\!|w_2|)]$, a \emph{viability bound}
-$\varepsilon_{\rm req}=E_{\rm req}/(N_{\rm orb}p_{\rm survive})$,
-the \emph{error threshold} $Q^L s>1$, and a compartment retention trade-off.
-Existential stability is summarized by
-$\mathrm{SEC}\propto (\tau^K/(S{+}N))\,(T_{\rm above}/W)$.
-Phase/superposition is treated operationally: geometry can compress phase (coherence $\uparrow$) to cross thresholds ($\Delta\tau^K=1$), otherwise no new counts accrue.
-
-The framework is deliberately minimal and falsifiable: it constrains microphysics via cross-scale role regularities and yields tests that hold in strict $3{+}1$D while remaining compatible with higher-$D$ hypotheses (which would only renormalize exponents/couplings rather than introduce new primitives).
+The same roles map across scales—Ur-fabric $\rightarrow$ cosmos $\rightarrow$ 
+molecules $\rightarrow$ life $\rightarrow$ mind/AI. This framework resonates with 
+universality principles in physics (Kadanoff, Wilson), error thresholds in molecular 
+evolution (Eigen; Szathmáry \& Maynard Smith), and systemic coherence theories 
+in neuroscience (Tononi’s IIT; Friston’s Free Energy Principle). Unlike 
+domain-specific models, it enforces a minimal and falsifiable calculus: 
+cross-scale invariants (slopes, coherence windows, hysteresis loops) provide 
+operational tests while remaining compatible with higher-$D$ hypotheses.
 
 \chapter*{Keywords}
-role calculus; orientation $O$; binding $G$; composition $K{:=}O\!\circ G$; counting time $t{:=}C[\tau^K]$; $\tau^O$; $\tau^K$; thresholds $\Theta,\sigma_c$; hysteresis; SEC (existential stability); cross-coherence $C_1(k)$; decoupling band; parameter-free identity $C_{\mathrm{out}}/s_{\mathrm{in}}=a^{3}$ (and $a^{D}$); dimensional diagnostic; stacking; gravity/electrostatics avatars; baryon conditioning; black-hole release shell; EHT polarization/closure phase; HFQPO over-ISCO; ringdown echoes; Keim window $\Delta\mu_{\rm eff}\!\gtrsim\!\Theta_{\rm eff}$; viability bound $\varepsilon_{\rm req}$; error threshold $Q^L s>1$; compartment retention; coordination plateaus (C$_2$); apex keim (Human→AI); guardrails; universality-class stance; falsifiability; dimension-agnostic.
+role calculus; orientation $O$; binding $G$; composition $K{:=}O\!\circ G$; 
+counting time $t{:=}C[\tau^K]$; thresholds $\Theta,\sigma_c$; hysteresis; 
+cross-coherence $C_1(k)$; universality; falsifiability; black-hole release shell; 
+error threshold; coordination plateaus (C$_2$); universality-class stance; 
+dimension-agnostic.
 
 \tableofcontents
 \listoffigures
@@ -185,39 +195,51 @@ role calculus; orientation $O$; binding $G$; composition $K{:=}O\!\circ G$; coun
 \part{Introduction}
 
 \section*{Plain-language overview}
-This work asks a simple question with big consequences: \emph{Are two roles enough to organize what we see across physics and biology?} 
+This work asks a simple question with far-reaching consequences: 
+\emph{Are two roles enough to organize what we see across physics, biology, and cognition?} 
 We call them \textbf{orientation/transport} ($O$) and \textbf{binding/structuring} ($G$). 
-They are not new forces; they are \emph{what processes do}. 
-A reader $C$ makes these roles visible and \emph{counts}: $\tau^O$ counts $O$-events; $\tau^K$ counts overlap-events $K:=O\!\circ G$; macroscopic time is the coarse continuation $t:=C[\tau^K]$. 
-From that vantage point, familiar inverse-square laws, potential wells, flows, membranes, neurons, markets—look like \emph{the same grammar} at different scales.
+They are not new forces but rather \emph{what processes do}. 
+A reader $C$ makes these roles visible and \emph{counts}: $\tau^O$ counts $O$-events; 
+$\tau^K$ counts overlap-events $K := O \!\circ G$; macroscopic time is the coarse continuation $t := C[\tau^K]$. 
+From this vantage point, familiar patterns---inverse-square laws, potential wells, flows, membranes, neurons, or even markets---look like \emph{the same grammar} recurring at different scales.
 
-What is genuinely new here is not a metaphysical claim but a \emph{testable} one: in weak fields, stacks around approximately spherical deficits must show a paired slope signature $(+1,-2)$ and a parameter-free inside–outside identity. 
-Flows and potentials should partially line up (a finite $0<C_1(k)<1$ band), and thresholded systems should exhibit nucleation–persistence hysteresis. 
-Those three signatures (T1–T3) are our through-line from Ur-fabric to cosmos, life, mind, and AI.
+What is genuinely new here is not a metaphysical claim but a \emph{testable} one. 
+In weak fields, stacks around approximately spherical deficits must show a paired slope signature $(+1,-2)$ and a parameter-free inside--outside identity. 
+Flows and potentials should only partially align (a finite $0<C_1(k)<1$ band), and thresholded systems should exhibit nucleation--persistence hysteresis. 
+These three signatures (T1--T3) are our through-line from Ur-fabric to cosmos, life, mind, and AI.
 
 \subsection*{What is new here (in one page)}
 \begin{enumerate}
-  \item \textbf{Counting time.} We operationalize time as counting of real events: $\tau^O$, $\tau^K$, $t=C[\tau^K]$. $C$ \emph{does not act}; it reads.
-  \item \textbf{Dimension-agnostic weak-field law.} The orientation avatar yields inner/outer slopes and a parameter-free identity. In 3D this is $(+1,-2)$ with $C_{\mathrm{out}}/s_{\mathrm{in}}=a^3$; in $D$ dimensions it generalizes to $(+1,-(D\!-\!1))$ and $a^{D}$.
-  \item \textbf{Cross-coherence bridge.} Flows vs.\ potentials exhibit a finite coherence band $0<C_1(k)<1$—\emph{not} a perfect lock—organizing residuals and scale-coupling.
-  \item \textbf{Thresholds and hysteresis.} Two thresholds matter: a seed threshold $\Theta$ (nucleation) and a persistence threshold $\sigma_c$ (long-lived channels). Their operational face is a hysteresis loop with area $\mathcal A_{\rm loop}>0$.
-  \item \textbf{Same roles across layers.} Ur-fabric $\to$ cosmos (e.g.\ near-horizon “release shells”), $\to$ molecules \& life (Keim window, compartments), $\to$ mind/AI (coordination plateaus, apex keim). No new primitives are added; only avatars and parameters change.
+  \item \textbf{Counting time.} Time is operationalized as counting of real events: $\tau^O$, $\tau^K$, and $t = C[\tau^K]$. $C$ \emph{does not act}; it reads. 
+  This connects to the idea of time as an order parameter in statistical physics.
+  \item \textbf{Dimension-agnostic weak-field law.} The orientation avatar yields inner/outer slopes and a parameter-free identity. 
+  In 3D this is $(+1,-2)$ with $C_{\mathrm{out}}/s_{\mathrm{in}}=a^3$; in $D$ dimensions it generalizes to $(+1,-(D{-}1))$ and $a^{D}$.
+  \item \textbf{Cross-coherence bridge.} Flows vs.\ potentials exhibit a finite coherence band $0<C_1(k)<1$---\emph{not} a perfect lock---organizing residuals and scale-coupling. 
+  This resonates with cross-scale correlations in critical phenomena \citep{Wilson1971RG,Kadanoff1966}.
+  \item \textbf{Thresholds and hysteresis.} Two thresholds matter: a seed threshold $\Theta$ (nucleation) and a persistence threshold $\sigma_c$ (long-lived channels). 
+  Their operational face is a hysteresis loop with area $\mathcal A_{\rm loop}>0$, paralleling Eigen's \emph{error threshold} in evolutionary dynamics \citep{Eigen1971,Szathmary1995}.
+  \item \textbf{Same roles across layers.} Ur-fabric $\to$ cosmos (e.g.\ near-horizon “release shells”), $\to$ molecules \& life (Keim window, compartments), $\to$ mind/AI (coordination plateaus, apex keim). 
+  No new primitives are added; only avatars and parameters change. 
+  This parallels universality classes in physics, where different micro-dynamics collapse into shared critical exponents.
 \end{enumerate}
 
 \subsection*{Key questions}
 \begin{enumerate}
   \item \emph{Minimality.} Are $O$ and $G$ sufficient as role primitives once time is treated as counting via $C$?
   \item \emph{Falsifiability.} Do data exhibit T1 (paired slopes $+1/-2$ and identity), T2 (finite $C_1(k)$ band with null removal), and T3 (hysteresis with $\mathcal A_{\rm loop}>0$)?
-  \item \emph{Bridging.} Can the same tests diagnose overlap events from Ur-fabric to black-hole environs, to prebiotic chemistry, to neural coordination?
-  \item \emph{Robustness.} Do results hold in strict $3{+}1$D—and how would higher-$D$ hypotheses show up (exponent/coupling shifts) without adding new primitives?
+  \item \emph{Bridging.} Can the same tests diagnose overlap events from Ur-fabric to black-hole environs, to prebiotic chemistry, to neural coordination? 
+  This echoes the search for cross-scale invariants in biology (Eigen's thresholds) and neuroscience (Tononi’s IIT, Friston’s Free Energy Principle \citep{Tononi2004IIT,Friston2010FEP}).
+  \item \emph{Robustness.} Do results hold in strict $3{+}1$D---and how would higher-$D$ hypotheses show up (exponent/coupling shifts) without adding new primitives?
 \end{enumerate}
 
 \begin{insight}
-\textbf{Role vs.\ mechanism.} We separate \emph{what} a process does ($O,G$) from \emph{how} it is implemented (microphysics). This keeps the language compact across domains and puts tests first.
+\textbf{Role vs.\ mechanism.} We separate \emph{what} a process does ($O,G$) from \emph{how} it is implemented (microphysics). 
+This keeps the language compact across domains and puts tests first.
 \end{insight}
 
 \begin{implication}
-\textbf{One toolkit, many layers.} If the role signatures persist, we gain a common diagnostic and reporting standard from gravity avatars to protocells to coordinated neural plateaus.
+\textbf{One toolkit, many layers.} If the role signatures persist, we gain a common diagnostic and reporting standard---from gravity avatars to protocells to coordinated neural plateaus. 
+This suggests a universality-class stance that spans physics, life, and cognition.
 \end{implication}
 
 \begin{limitation}
