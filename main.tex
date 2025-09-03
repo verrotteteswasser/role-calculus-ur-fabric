@@ -71,9 +71,17 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
-% ---------- Bibliography ----------
-\usepackage[backend=biber,style=authoryear,maxbibnames=99,giveninits=true]{biblatex}
+% === Bibliography (biblatex+biber) with natbib compatibility ===
+\usepackage{csquotes} % empfohlen mit biblatex
+\usepackage[
+  backend=biber,
+  style=authoryear,     % oder numeric / alphabetic / apa
+  sorting=nyt,
+  natbib=true           % <— ERLAUBT \citep, \citet etc.
+]{biblatex}
+\ExecuteBibliographyOptions{uniquename=init} % behebt die inits/uniquename-Warnung
 \addbibresource{references.bib}
+
 
 % ---------- TODOs (toggle) ----------
 \newif\ifdraft \draftfalse
