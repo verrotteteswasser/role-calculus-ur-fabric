@@ -85,6 +85,7 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{calc,positioning}
+\tikzset{every node/.style={align=center}}
 
 % === Bibliography (biblatex+biber) with natbib compatibility ===
 \usepackage[
@@ -202,11 +203,13 @@ cross-coherence $C_1(k)$; universality; falsifiability; black-hole release shell
 error threshold; coordination plateaus (C$_2$); universality-class stance; 
 dimension-agnostic.
 
+\pagenumbering{roman}       % kleine römische Zahlen
 \tableofcontents
 \listoffigures
 \listoftables
+
 \clearpage
-\pagenumbering{arabic}
+\pagenumbering{arabic}  
 
 \part{Introduction}
 
@@ -349,7 +352,13 @@ to how Eigen's error threshold sets strict viability bounds in evolutionary mode
 \end{tikzpicture}
 
 % Emergence
-\node[rectangle,draw,rounded corners,below=2.5cm of Time,minimum width=6cm] (Emerg) {Avatars across scales: \\ Cosmos $\rightarrow$ Molecules $\rightarrow$ Life $\rightarrow$ Mind/AI};
+\node[rectangle,draw,rounded corners,
+      below=2.5cm of Time,
+      minimum width=6cm,
+      align=center] % <-- wichtig für \\ im Node
+      (Emerg)
+      {Avatars across scales:\\
+       Cosmos $\rightarrow$ Molecules $\rightarrow$ Life $\rightarrow$ Mind/AI};
 
 % Arrows from triad to C
 \draw[->] (N) -- (O);
