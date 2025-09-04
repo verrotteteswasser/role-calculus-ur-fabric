@@ -70,6 +70,7 @@
 % ---------- Plots (optional) ----------
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
+\usetikzlibrary{calc,positioning}
 
 % === Bibliography (biblatex+biber) with natbib compatibility ===
 \usepackage{csquotes} % empfohlen mit biblatex
@@ -85,7 +86,12 @@
 
 % ---------- TODOs (toggle) ----------
 \newif\ifdraft \draftfalse
-\ifdraft\usepackage{todonotes}\setlength{\marginparwidth}{2cm}\else\usepackage[disable]{todonotes}\fi
+\ifdraft
+  \setlength{\marginparwidth}{2cm}
+  \usepackage{todonotes}
+\else
+  \usepackage[disable]{todonotes}
+\fi
 
 % ---------- Helper Macros ----------
 \usepackage{xparse}
