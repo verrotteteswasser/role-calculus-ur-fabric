@@ -5,7 +5,6 @@
 \documentclass[12pt,a4paper,oneside]{scrreprt}
 
 % ---------- Language & Encoding ----------
-% (für LuaLaTeX: keine inputenc/fontenc)
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}
 \setmainfont{Latin Modern Roman}
@@ -15,15 +14,16 @@
 \usepackage{csquotes}
 
 \usepackage{microtype}
-\AtBeginDocument{\microtypesetup{protrusion=false}} % falls du Protrusion aus haben willst
+% Falls gewünscht: Protrusion für Text/Mathe deaktivieren
+\AtBeginDocument{\microtypesetup{protrusion=false}}
 
-% --- Unicode -> LaTeX Mappings (fix build) ---
+% --- Unicode -> LaTeX Mappings (nur wenn Zeichen wirklich vorkommen) ---
 \usepackage{newunicodechar}
-\newunicodechar{′}{\ensuremath{^{\prime}}}   % U+2032 prime
-\newunicodechar{⇒}{\ensuremath{\Rightarrow}} % U+21D2
-\newunicodechar{→}{\ensuremath{\to}}         % (falls benutzt)
-\newunicodechar{≤}{\ensuremath{\le}}         % (falls benutzt)
-\newunicodechar{≥}{\ensuremath{\ge}}         % (falls benutzt)
+\newunicodechar{′}{\ensuremath{^{\prime}}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{→}{\ensuremath{\to}}
+\newunicodechar{≤}{\ensuremath{\le}}
+\newunicodechar{≥}{\ensuremath{\ge}}
 
 % Build-Metadaten (aus CI befüllt; lokal Fallback)
 \IfFileExists{buildmeta.tex}{\input{buildmeta.tex}}{%
@@ -35,26 +35,26 @@
 \geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=3cm}
 \usepackage{setspace}
 \onehalfspacing
-% kein zweites \usepackage{microtype} hier
 
 % ---------- Math, Tables, Units ----------
 \usepackage{amsmath,amssymb,mathtools}
-\usepackage{siunitx}\sisetup{detect-all=true}
+\usepackage{siunitx} \sisetup{detect-all=true}
 \usepackage{booktabs,array,multirow}
 
 % ---------- Graphics ----------
-\usepackage{graphicx,subcaption,caption}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \captionsetup{labelfont=bf}
 \graphicspath{{figures/}{figures/fig/}}
 % \setkeys{Gin}{draft=true} % falls Bilder fehlen
 
 % ---------- Links & Clever refs ----------
-% Links & Clever refs
 \usepackage{xcolor}
 \definecolor{linkblue}{HTML}{0A66C2}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=black,citecolor=linkblue,urlcolor=linkblue}
-\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage[nameinlink,noabbrev]{cleveref} % nach hyperref
 
 % Math in moving arguments (section titles, captions) -> ASCII fallback
 \pdfstringdefDisableCommands{%
@@ -67,37 +67,35 @@
   \def\({}%
   \def\){}%
 }
-% ---------- Plots (optional) ----------
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
-\usetikzlibrary{calc,positioning}
-
-% === Bibliography (biblatex+biber) with natbib compatibility ===
-\usepackage{csquotes} % empfohlen mit biblatex
-\usepackage[
-  backend=biber,
-  style=authoryear,     % oder numeric / alphabetic / apa
-  sorting=nyt,
-  natbib=true           % <— ERLAUBT \citep, \citet etc.
-]{biblatex}
-\ExecuteBibliographyOptions{uniquename=init} % behebt die inits/uniquename-Warnung
-\addbibresource{references.bib}
-
 
 % ---------- TODOs (toggle) ----------
 \newif\ifdraft \draftfalse
 \ifdraft
-  \setlength{\marginparwidth}{2cm}
+  \setlength{\marginparwidth}{2cm} % vor Laden von todonotes
   \usepackage{todonotes}
 \else
   \usepackage[disable]{todonotes}
 \fi
 
+% ---------- Plots (TikZ/PGF) ----------
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{calc,positioning}
+
+% === Bibliography (biblatex+biber) with natbib compatibility ===
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  sorting=nyt,
+  natbib=true
+]{biblatex}
+\ExecuteBibliographyOptions{uniquename=init}
+\addbibresource{references.bib}
+
 % ---------- Helper Macros ----------
 \usepackage{xparse}
 
 % failsafe \addfig: bricht nicht ab, wenn Bild fehlt
-
 \makeatletter
 \@ifundefined{addfig}{%
   \NewDocumentCommand{\addfig}{O{htbp} m m m O{0.9}}{%
@@ -141,8 +139,8 @@
 \DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
 \DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
 \DeclareOldFontCommand{\sc}{\normalfont\scshape}{\relax}
-
 % ==================================================================
+
 
 \begin{document}
 \begin{titlepage}
@@ -326,8 +324,7 @@ to how Eigen's error threshold sets strict viability bounds in evolutionary mode
 \node[circle,draw,minimum size=1.2cm,above=1.5cm of $(N)!0.5!(S)$] (C) {C};
 
 % Roles
-\node[rectangle,draw,rounded corners,below left=1.8cm of N,minimum width=2.2cm] (O) {Orientation \\ ($O=C\circ N$)};
-\node[rectangle,draw,rounded corners,below right=1.8cm of S,minimum width=2.2cm] (G) {Binding \\ ($G=C\circ S$)};
+\node[minimum width=2.2cm, align=center] (O) {Orientation\\($O=C\circ N$)};
 
 % Counting time
 \node[rectangle,draw,rounded corners,below=2.5cm of $(O)!0.5!(G)$,minimum width=4cm] (Time) {Counting Time \\ $\tau^O,\,\tau^K,\, t=C[\tau^K]$};
