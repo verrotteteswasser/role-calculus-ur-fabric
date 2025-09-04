@@ -32,9 +32,22 @@
 
 % ---------- Layout & Aesthetics ----------
 \usepackage{geometry}
-\geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=3cm}
+\geometry{
+  left=3cm,right=2.5cm,top=2.5cm,bottom=3cm,
+  marginparwidth=2cm,   % Platz für todonotes
+  marginparsep=2mm      % Abstand zum Text
+}
+
 \usepackage{setspace}
 \onehalfspacing
+
+\newif\ifdraft
+\draftfalse
+\ifdraft
+  \usepackage{todonotes}
+\else
+  \usepackage[disable]{todonotes}
+\fi
 
 % ---------- Math, Tables, Units ----------
 \usepackage{amsmath,amssymb,mathtools}
@@ -67,15 +80,6 @@
   \def\({}%
   \def\){}%
 }
-
-% ---------- TODOs (toggle) ----------
-\newif\ifdraft \draftfalse
-\ifdraft
-  \setlength{\marginparwidth}{2cm} % vor Laden von todonotes
-  \usepackage{todonotes}
-\else
-  \usepackage[disable]{todonotes}
-\fi
 
 % ---------- Plots (TikZ/PGF) ----------
 \usepackage{pgfplots}
@@ -327,7 +331,14 @@ to how Eigen's error threshold sets strict viability bounds in evolutionary mode
 \node[minimum width=2.2cm, align=center] (O) {Orientation\\($O=C\circ N$)};
 
 % Counting time
-\node[rectangle,draw,rounded corners,below=2.5cm of $(O)!0.5!(G)$,minimum width=4cm] (Time) {Counting Time \\ $\tau^O,\,\tau^K,\, t=C[\tau^K]$};
+
+% Mittelpunkt zwischen O und G als (leere) Referenz-Node
+\node (OGmid) at ($(O)!0.5!(G)$) {};
+
+\node[rectangle,draw,rounded corners,
+      minimum width=4cm, align=center,
+      below=2.5cm of OGmid] (Time)
+  {Counting Time\\ $\tau^O,\,\tau^K,\, t=C[\tau^K]$};
 
 % Emergence
 \node[rectangle,draw,rounded corners,below=2.5cm of Time,minimum width=6cm] (Emerg) {Avatars across scales: \\ Cosmos $\rightarrow$ Molecules $\rightarrow$ Life $\rightarrow$ Mind/AI};
