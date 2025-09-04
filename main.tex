@@ -333,12 +333,20 @@ to how Eigen's error threshold sets strict viability bounds in evolutionary mode
 % Counting time
 
 % Mittelpunkt zwischen O und G als (leere) Referenz-Node
-\node (OGmid) at ($(O)!0.5!(G)$) {};
+\begin{tikzpicture}
+  % 1) Erst die Referenz-Nodes definieren
+  \node (O) [circle,draw,minimum size=8mm] {O};
+  \node (G) [circle,draw,minimum size=8mm, right=4cm of O] {G};
 
-\node[rectangle,draw,rounded corners,
-      minimum width=4cm, align=center,
-      below=2.5cm of OGmid] (Time)
-  {Counting Time\\ $\tau^O,\,\tau^K,\, t=C[\tau^K]$};
+  % 2) Mittelpunkt einmal als leere Node/Koordinate anlegen
+  \node (OGmid) at ($(O)!0.5!(G)$) {};
+
+  % 3) Jetzt relativ dazu platzieren (hier: 2.5cm darunter)
+  \node[rectangle,draw,rounded corners,
+        minimum width=4cm, align=center,
+        below=2.5cm of OGmid] (Time)
+        {Counting Time\\ $\tau^O,\,\tau^K,\, t=C[\tau^K]$};
+\end{tikzpicture}
 
 % Emergence
 \node[rectangle,draw,rounded corners,below=2.5cm of Time,minimum width=6cm] (Emerg) {Avatars across scales: \\ Cosmos $\rightarrow$ Molecules $\rightarrow$ Life $\rightarrow$ Mind/AI};
