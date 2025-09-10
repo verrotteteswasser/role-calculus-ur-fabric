@@ -95,7 +95,7 @@
   natbib=true
 ]{biblatex}
 \ExecuteBibliographyOptions{uniquename=init}
-\addbibresource{references_implemented.bib}
+\addbibresource{references.bib}
 
 % ---------- Helper Macros ----------
 \usepackage{xparse}
@@ -134,6 +134,13 @@
   \end{quote}
 }
 
+\usepackage{pifont}
+\usepackage{enumitem} % falls noch nicht geladen
+\newenvironment{checklist}{%
+  \begin{itemize}[label=\checkmark,leftmargin=2em]
+}{%
+  \end{itemize}
+}
 
 % concept boxes
 \newenvironment{insight}{\par\vspace{0.5em}\noindent\textbf{Insight.}\ }{\par\vspace{0.5em}}
