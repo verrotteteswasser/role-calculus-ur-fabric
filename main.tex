@@ -126,18 +126,20 @@
     \end{figure}}
 }
 \makeatother
-
-% --- Roadmap-Umgebung als Liste (Option 1b) ---
-\newenvironment{roadmap}{%
-  \begin{quote}\setlength{\parskip}{0.5\baselineskip}%
-}{%
-  \end{quote}
-}
-
+% --- Checklist environment (tick marks) ---
 \usepackage{pifont}
-\usepackage{enumitem} % falls noch nicht geladen
+\usepackage{enumitem}
 \newenvironment{checklist}{%
   \begin{itemize}[label=\checkmark,leftmargin=2em]
+}{%
+  \end{itemize}
+}
+
+
+% --- Roadmap-Umgebung als Liste (Option 1b) ---
+\usepackage{enumitem} % falls noch nicht vorhanden, am besten hier laden
+\newenvironment{roadmap}{%
+  \begin{itemize}[leftmargin=2em]
 }{%
   \end{itemize}
 }
