@@ -95,7 +95,7 @@
   natbib=true
 ]{biblatex}
 \ExecuteBibliographyOptions{uniquename=init}
-\addbibresource{references.bib}
+\addbibresource{references_implemented.bib}
 
 % ---------- Helper Macros ----------
 \usepackage{xparse}
@@ -128,12 +128,12 @@
 \makeatother
 
 % --- Roadmap-Umgebung als Liste (Option 1b) ---
-\usepackage{enumitem} % falls noch nicht vorhanden, am besten hier laden
 \newenvironment{roadmap}{%
-  \begin{itemize}[leftmargin=2em]
+  \begin{quote}\setlength{\parskip}{0.5\baselineskip}%
 }{%
-  \end{itemize}
+  \end{quote}
 }
+
 
 % concept boxes
 \newenvironment{insight}{\par\vspace{0.5em}\noindent\textbf{Insight.}\ }{\par\vspace{0.5em}}
@@ -217,11 +217,6 @@ dimension-agnostic.
 \listoftables
 
 \clearpage
-\hypersetup{pageanchor=false}
-\tableofcontents
-\listoffigures
-\listoftables
-\hypersetup{pageanchor=true}
 \pagenumbering{arabic}  
 
 \part{Introduction}
