@@ -126,22 +126,15 @@
     \end{figure}}
 }
 \makeatother
-% --- Checklist environment (tick marks) ---
-\usepackage{pifont}
-\usepackage{enumitem}
-\newenvironment{checklist}{%
-  \begin{itemize}[label=\checkmark,leftmargin=2em]
-}{%
-  \end{itemize}
-}
-
 
 % --- Roadmap-Umgebung als Liste (Option 1b) ---
 \usepackage{enumitem} % falls noch nicht vorhanden, am besten hier laden
 \newenvironment{roadmap}{%
-  \begin{itemize}[leftmargin=2em]
+  \begin{quote}\setlength{\parskip}{0.6\baselineskip}
 }{%
-  \end{itemize}
+  \end{quote}
+}
+
 }
 
 % concept boxes
@@ -226,6 +219,11 @@ dimension-agnostic.
 \listoftables
 
 \clearpage
+\hypersetup{pageanchor=false}
+\tableofcontents
+\listoffigures
+\listoftables
+\hypersetup{pageanchor=true}
 \pagenumbering{arabic}  
 
 \part{Introduction}
@@ -1000,6 +998,7 @@ This strengthens the universality-class stance of the calculus:
 one grammar, many avatars, across all scales.
 
 \begin{roadmap}
+
 \textbf{Why quanta matter for the larger arc.}  
 The quantum floor serves as the first anchor of the triad grammar.  
 Seed–survive–persist thresholds appear here as transient excitations, 
